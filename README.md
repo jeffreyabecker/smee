@@ -13,7 +13,7 @@ block commits that dont pass muster, or really whatever you want. However the fu
 
 Many developers use an NPM package, Husky, to help aleviate these pain points. However Husky has its own issues
 
-* Older versions of husky depend on the NPM lifecycle events which is a real drag if you're no using node in your project
+* Older versions of husky depend on the NPM lifecycle events which is a real drag if you're not using node in your project
 * The most recent versions of husky have changed and no longer alleviate the pain points on windows
 
 ### Smee
