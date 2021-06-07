@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>    
-    <StartupObject>Smee.Program</StartupObject>
+    <StartupObject>Smee.SmeeApplication</StartupObject>
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>smee</ToolCommandName>
     <PackageOutputPath>./nupkg</PackageOutputPath>

@@ -1,6 +1,6 @@
 ﻿namespace Smee
 {
-  public static class Hooks
+  public static class HookNames
   {
     public const string PreCommit = "pre-commit";
     public const string PrepareCommitMsg = "prepare-commit-msg";
