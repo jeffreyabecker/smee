@@ -3,20 +3,14 @@ using System.IO;
 
 namespace Smee
 {
-
-  public class InitCommand : SmeeApplicationBase
+  [Command(Name ="init", Description="Initializes a hooks folder in the local repo")]
+  public class InitCommand : SmeeCommand
   {
 
 
-    public InitCommand()
-    {
-      Name = "init";
-      HelpOption("-? | -h | --help");
-      Description = "Initializes a hooks folder in the local repo";
-      OnExecute(Exec);
-    }
 
-    private int Exec()
+
+    public int OnExecute(CommandLineApplication app)
     {
       var absoluteHooksFolder = Path.Combine(GitRepo, HooksPath);
       if(SubModuleRepo != null)
@@ -83,10 +77,6 @@ namespace Smee
 
       System.Diagnostics.Process.Start(info).WaitForExit();
     }
-
-    [Option("-t|--script-type", "The type of script/scripting engine to configure. 'ps1' - Powershell. 'csx' a dotnet-script C# script. ", CommandOptionType.SingleValue),
-      AllowedValues("ps1","csx", Comparer = System.StringComparison.InvariantCultureIgnoreCase)]
-    public string ScriptType { get; set; } = "ps1";
 
     [Option("--from-repo", "A git repo url to clone as a submodule into your hooks folder", CommandOptionType.SingleValue)]
     public string SubModuleRepo { get; set; }

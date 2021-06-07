@@ -1,25 +1,15 @@
 ﻿using McMaster.Extensions.CommandLineUtils;
-using Microsoft.VisualBasic;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
 namespace Smee
 {
-
-  public class AddCommand : SmeeApplicationBase
+  [Command(Name ="add", Description = "Sets up a new git hook indirection which works on Windows, MacOS and Linux")]
+  public class AddCommand : SmeeCommand
   {
 
-    public AddCommand()
-    {
-      Name = "add";
-      HelpOption("-? | -h | --help");
-      Description = "Sets up a new git hook indirection which works on Windows, MacOS and Linux";
-
-      OnExecute(Exec);
-    }
-
-    private int Exec()
+    public int OnExecute(CommandLineApplication app)
     {
 
       var targetHooksFolder = Path.Combine(GitRepo, HooksPath);
@@ -45,12 +35,15 @@ namespace Smee
       return 0;
     }
 
-    [Option("-t|--script-type", "The type of script/scripting engine to configure. 'ps' - Powershell. 'csx' a dotnet-script C# script. ", CommandOptionType.SingleValue)]
+    [Option("-t|--script-type", "The type of script/scripting engine to generate. 'ps' - Powershell. 'csx' a dotnet-script C# script. ", CommandOptionType.SingleValue)]
     public string Ext { get; set; }
 
     [Argument(0, "hook-name(s)", Description="(Required) The name of the git hook(s) to create  or 'all'" ),
       AllowedValues("pre-commit", "prepare-commit-msg", "commit-msg", "post-commit", "pre-rebase", "post-rewrite", "post-checkout", "post-merge", "pre-push", "pre-auto-gc", "all", Comparer = System.StringComparison.InvariantCultureIgnoreCase)]
     public List<string> Hooks { get; set; } = new List<string> { "all" };
+
+    [Option("--overwrite", "Overwrite existing scripts with the generated hook", CommandOptionType.NoValue, Inherited = false)]
+    public bool Overwrite { get; set; } = false;
 
     public TargetScriptType Type => Ext?.ToLowerInvariant() == "csx" ? TargetScriptType.CSharpScript : TargetScriptType.Powershell;
 
