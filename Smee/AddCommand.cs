@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Smee
 {
-  [Command(Name ="add", Description = "Sets up a new git hook indirection which works on Windows, MacOS and Linux")]
+  [Command(Name = "add", Description = "Sets up a new git hook indirection which works on Windows, MacOS and Linux")]
   public class AddCommand : SmeeCommand
   {
 
@@ -38,7 +38,7 @@ namespace Smee
     [Option("-t|--script-type", "The type of script/scripting engine to generate. 'ps' - Powershell. 'csx' a dotnet-script C# script. ", CommandOptionType.SingleValue)]
     public string Ext { get; set; }
 
-    [Argument(0, "hook-name(s)", Description="(Required) The name of the git hook(s) to create  or 'all'" ),
+    [Argument(0, "hook-name(s)", Description = "(Required) The name of the git hook(s) to create  or 'all'"),
       AllowedValues("pre-commit", "prepare-commit-msg", "commit-msg", "post-commit", "pre-rebase", "post-rewrite", "post-checkout", "post-merge", "pre-push", "pre-auto-gc", "all", Comparer = System.StringComparison.InvariantCultureIgnoreCase)]
     public List<string> Hooks { get; set; } = new List<string> { "all" };
 
@@ -51,4 +51,3 @@ namespace Smee
   }
 
 }
-

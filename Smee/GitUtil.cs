@@ -63,6 +63,10 @@ namespace Smee
       {
         return $"exec dotnet-script.exe \"{pathRelativeToRepoRoot}\" -- \"$@\"\nexit";
       }
+      else if (type == TargetScriptType.Shell)
+      {
+        return $"exec {pathRelativeToRepoRoot}  \"$@\"\nexit";
+      }
       else
       {
         throw new ArgumentException($"script-type must be one of 'ps', 'csx'", "script-type");
@@ -72,7 +76,7 @@ namespace Smee
     public static string GetWindowsShebang()
     {
       var possibleGits = Environment.GetEnvironmentVariable("Path").Split(';').Where(x => x.ToLower().Contains(@"\git\"))
-        .Select(x=>x.TrimEnd('\\')).ToList();
+        .Select(x => x.TrimEnd('\\')).ToList();
 
 
       var usrBin = possibleGits.FirstOrDefault(v => v.ToLower().EndsWith(@"\git\usr\bin"));

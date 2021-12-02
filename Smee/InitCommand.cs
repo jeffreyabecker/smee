@@ -3,17 +3,14 @@ using System.IO;
 
 namespace Smee
 {
-  [Command(Name ="init", Description="Initializes a hooks folder in the local repo")]
+  [Command(Name = "init", Description = "Initializes a hooks folder in the local repo")]
   public class InitCommand : SmeeCommand
   {
-
-
-
 
     public int OnExecute(CommandLineApplication app)
     {
       var absoluteHooksFolder = Path.Combine(GitRepo, HooksPath);
-      if(SubModuleRepo != null)
+      if (SubModuleRepo != null)
       {
         CloneSubmodule();
         if (!GitUtil.RequiresIndirection)
@@ -42,7 +39,7 @@ namespace Smee
           GitUtil.RedirectGitHooksFolder(HooksPath, GitRepo);
         }
         else
-        {      
+        {
           var targetHooksFolder = Path.Combine(GitRepo, HooksPath);
           foreach (var hook in HookNames.AllHooks)
           {
@@ -55,9 +52,9 @@ namespace Smee
       return 0;
     }
     private readonly TargetScriptType[] _allTypes = new[] { TargetScriptType.Powershell, TargetScriptType.CSharpScript };
-    void ConnectScriptIfExists(string  targetHooksFolder, string hook)
+    void ConnectScriptIfExists(string targetHooksFolder, string hook)
     {
-      foreach(var type in _allTypes)
+      foreach (var type in _allTypes)
       {
         var target = Path.Combine(targetHooksFolder, hook + type.GetExtension());
 
@@ -83,6 +80,3 @@ namespace Smee
   }
 
 }
-
-
-

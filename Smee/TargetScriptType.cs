@@ -5,7 +5,8 @@ namespace Smee
   public enum TargetScriptType
   {
     Powershell,
-    CSharpScript
+    CSharpScript,
+    Shell
   }
   public static class TargetScriptTypeExtensions
   {
@@ -13,6 +14,7 @@ namespace Smee
     {
       if (type == TargetScriptType.Powershell) return ".ps1";
       if (type == TargetScriptType.CSharpScript) return ".csx";
+      if (type == TargetScriptType.Shell) return ".sh";
       throw new InvalidEnumArgumentException($"Unknown Script Type {type}. Did you forget to add the extension?");
 
     }
